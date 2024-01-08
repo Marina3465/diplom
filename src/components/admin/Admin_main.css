@@ -1,0 +1,57 @@
+.ad_main_header {
+    width: 100vw;
+    min-width: 300px;
+    background-color: #26BD00;
+    padding: 2px 10px;
+    display: flex;
+    align-items: center;
+}
+
+
+.ad_main_logo {
+    width: 45px;
+}
+
+#list-pages {
+    display: flex;
+    margin-left: 20px;
+    height: 100%;
+    border: 0;
+    color: #FFF;
+    font-size: 20px;
+    background-color: #26BD00;
+    padding: 10px;
+    outline: none;
+}
+
+#list-pages > option{
+    padding: 10px;
+}
+
+.admin-to-users {
+    display: flex;
+    margin-left: 30px;
+    color: #FFF;
+    font-size: 20px;
+}
+
+.admin-to-qr {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.admin-to-account {
+    display: flex;
+    margin-right: 20px;
+    color: #FFF;
+    font-size: 20px;
+}
+
+.admin-to-exit {
+    display: flex;
+    margin-right: 20px;
+    color: #FFF;
+    font-size: 20px;
+}

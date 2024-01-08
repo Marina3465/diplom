@@ -1,23 +1,34 @@
 import './Choice.css';
-import React from 'react'
-
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate, Link
+} from "react-router-dom";
 
 function Choice() {
+
   return (
     <div className='cont-carts'>
-        <div className='views-info'>
-          <img className='choice-img' src={require('../../img/file.png')}/>
-          <div className='choice-text'>
-            <p>Просмотр и редактирование информации</p>
-          </div>
-          <img className='choice-arrow' src={require('../../img/arrow.png')}/>
+      <Link to={'/AdminMain'} className='views-info'>
+        <img className='choice-img' src={require('../../img/file.png')} />
+        <div className='choice-text'>
+          <p>Просмотр и редактирование информации</p>
         </div>
-        <div className='createQR'><img className='choice-img' src={require('../../img/qr.png')}/>
-          <div className='choice-text'>
-            <p>Создать QR-код</p>
-          </div>
-          <img className='choice-arrow' src={require('../../img/arrow.png')}/>
+        <img className='choice-arrow' src={require('../../img/arrow.png')} />
+      </Link>
+
+
+
+
+      <Link to={'/CreateQR'} className='createQR'>
+        <img className='choice-img' src={require('../../img/qr.png')} />
+        <div className='choice-text'>
+          <p>Создать QR-код</p>
         </div>
+        <img className='choice-arrow' src={require('../../img/arrow.png')} />
+      </Link>
     </div>
   )
 }
