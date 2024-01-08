@@ -1,26 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Admin_main.css';
+import Admin_header from './Admin_header';
+// import employee from '../../employee.json'
+const endpoint = 'https://jsonplaceholder.typicode.com/users';
+
 
 function Admin_main() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    (async () => {
+      const data = await fetch(endpoint)
+        .then(res => res.json())
+
+      setUsers(data)
+    })()
+  }, [])
+
   return (
-    <div className='ad_main_header'>
-      <img className='ad_main_logo' src={require('../../img/logo1.png')} />
-
-      <select name="journals" id='list-pages'>
-        <option value="" >Журналы</option>
-        <option value="department">Кафедры</option>
-        <option value="students">Студенты</option>
-        <option value="directions">Направления</option>
-      </select>
-      <div className='admin-to-users'>Пользователи</div>
-
-      <div className='admin-to-qr'>Создать QR-код</div>
-
-      <div className='admin-to-account'>Мой аккаунт</div>
-      <div className='admin-to-exit'>Выход</div>
-    </div>
-
-
+    <><Admin_header />
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name (Username)</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Website</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map(user => (
+            <tr key={user.id}>
+              <td>{user.id}</td>
+              <td>{user.name} ({user.username})</td>
+              <td>
+                <a href={`mailto:${user.email}`}>
+                  {user.email}
+                </a>
+              </td>
+              <td>{user.phone}</td>
+              <td>
+                <a href={`https://${user.website}`} target="_blank">
+                  {user.website}
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   )
 }
 

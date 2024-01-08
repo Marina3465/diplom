@@ -11,6 +11,7 @@ function App() {
         <Route path='/' element={<Choice />} />
         <Route path='AdminMain' element={<Admin_main />} />
         <Route path='CreateQR' element={<CreateQR/>}/>
+        
       </Routes>
     </div>
   );
