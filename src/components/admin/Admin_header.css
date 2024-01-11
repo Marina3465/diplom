@@ -3,15 +3,15 @@
     padding: 2px 10px;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
-
 
 .ad_main_logo {
     width: 45px;
 }
 
 .menu_button {
-    width: 190px;
+    width: 200px;
     background-color: #26BD00;
     border: none;
     color: #FFF;
@@ -24,7 +24,7 @@
     position: absolute;
     top: 75px;
     left: 55px;
-    width: 190px;
+    width: 200px;
     height: 150px;
     background-color: #26BD00;
     display: flex;
@@ -34,6 +34,7 @@
     transform: translateY(-10px);
     visibility: hidden;
     transition: 0.3s;
+    text-decoration: none;
 }
 
 .menu.active {
@@ -60,7 +61,9 @@
     margin: 15px 0;
     cursor: pointer;
 }
-
+.link-to{
+    text-decoration: none;
+}
 
 .admin-to-users {
     display: flex;

@@ -50,7 +50,38 @@ function Admin_main() {
           placeholder='Поиск по имени...'
         />
       </div>
-
+      <div className='filters'>
+        <select>
+          <option value={''}>Тип работы: </option>
+          {allUsers.map(user =>
+            <option key={user.id} value={user.company.name}>{user.company.name}</option>
+          )}
+        </select>
+        <select>
+          <option value={''}>Дисциплина: </option>
+          {allUsers.map(user =>
+            <option key={user.id} value={user.address.city}>{user.address.city}</option>
+          )}
+        </select>
+        <select>
+          <option value={''}>Преподаватель: </option>
+          {allUsers.map(user =>
+            <option key={user.id} value={user.email}>{user.email}</option>
+          )}
+        </select>
+        <select>
+          <option value={''}>Кафедра: </option>
+          {allUsers.map(user =>
+            <option key={user.id} value={user.address.street}>{user.address.street}</option>
+          )}
+        </select>
+        <select>
+          <option value={''}>Группа: </option>
+          {allUsers.map(user =>
+            <option key={user.id} value={user.address.suite}>{user.address.suite}</option>
+          )}
+        </select>
+      </div>
       {filteredUsers.map(user => (
         <div className='cart' key={user.id}>
           <div className='data'>

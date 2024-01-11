@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Admin_header.css';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function Admin_header() {
     const [isOpen, setOpen] = useState(false);
@@ -11,7 +12,8 @@ function Admin_header() {
             </button>
             <nav className={`menu ${isOpen ? "active" : ""}`}>
                 <ul className='menu_list'>
-                    <li className='menu_item'>Кафедры</li>
+                    <Link to="/AdminMain" className='link-to'><li className='menu_item'>Последнии записи</li></Link>
+                    <Link to="/AdminDepartment" className='link-to'><li className='menu_item'>Кафедры</li></Link>
                     <li className='menu_item'>Студенты</li>
                     <li className='menu_item'>Направления</li>
                 </ul>
@@ -19,11 +21,11 @@ function Admin_header() {
 
             <div className='admin-to-users'>Пользователи</div>
 
-            <div className='admin-to-qr'>
+            <Link className='admin-to-qr' to="/CreateQR">
                 <p>Создать QR-код</p>
                 <img className='qr-arrow' src={require('../../img/arrow.png')} />
 
-            </div>
+            </Link>
 
             <div className='admin-to-account'>Мой аккаунт</div>
             <div className='admin-to-exit'>Выход</div>
