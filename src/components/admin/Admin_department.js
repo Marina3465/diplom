@@ -6,7 +6,7 @@ import Modal from '../Modal/Modal';
 const endpoint = 'https://jsonplaceholder.typicode.com/users';
 
 function Admin_department() {
-    const [modalActive, setModalActive] = useState(true);
+    const [modalActive, setModalActive] = useState(false);
     const [userStates, setUserStates] = useState({});
     const [allUsers, setAllUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
@@ -69,6 +69,7 @@ function Admin_department() {
                 <div className='cart-department' key={user.id}>
                     <div className='data-department'>
                         <p><span>Кафедра: </span>{user.address.street}</p>
+                        <p><span>Номер телефона: </span>{user.address.zipcode}</p>
                     </div>
                     <button
                         className='department-setting'
@@ -88,10 +89,14 @@ function Admin_department() {
             ))}
             <Modal active={modalActive} setActive={setModalActive}>
                 <div className='modal-department'>
-                    <label for='name-dapartment'>Название кафедры</label>
-                    <input type='text' className='name-dapartment' />
-                    <label for='name-dapartment'>Номер телефона</label>
-                    <input type='text' className='phone-dapartment' />
+                    <div className='input-conteiner'>
+                        <input type='text' className='name-dapartment' placeholder=' ' />
+                        <label className='label-name'>Название кафедры</label>
+                    </div>
+                    <div className='input-conteiner'>
+                        <input type='text' className='phone-dapartment' placeholder=' ' />
+                        <label className='label-name'>Номер телефона</label>
+                    </div>
                 </div>
             </Modal>
         </>

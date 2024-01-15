@@ -6,8 +6,11 @@ function Modal({ active, setActive, children }) {
         <div className={`modal ${active ? "active" : ""}`}>
             <div className='modal-content'>
                 {children}
-                <button>Сохранить</button>
-                <button onClick={() => setActive(false)}>Отмена</button>
+                <div className='modal-button'>
+                    <button>Сохранить</button>
+                    <button onClick={() => setActive(false)}>Отмена</button>
+                </div>
+
             </div>
         </div>
     )
