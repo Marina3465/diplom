@@ -4,6 +4,10 @@ import { Routes, Route, Link } from 'react-router-dom';
 
 function Admin_header() {
     const [isOpen, setOpen] = useState(false);
+    function Exit(){
+        localStorage.removeItem('access_token');
+        // window.location.reload()
+    }
     return (
         <div className='ad_main_header'>
             <img className='ad_main_logo' src={require('../../img/logo1.png')} />
@@ -28,7 +32,7 @@ function Admin_header() {
             </Link>
 
             <div className='admin-to-account'>Мой аккаунт</div>
-            <div className='admin-to-exit'>Выход</div>
+            <Link to={"/"} className='admin-to-exit' onClick={Exit()}>Выход</Link>
         </div>
 
     )

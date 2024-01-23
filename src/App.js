@@ -11,7 +11,8 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={localStorage.getItem('access_token') != null ? <Choice /> : <Log />} />
-        <Route path='Choice' element={<Choice />} />
+        {/* <Route path='Log' element={<Log/>}/> */}
+        {/* <Route path='Choice' element={<Choice />} /> */}
         <Route path='AdminMain' element={<Admin_main />} />
         <Route path='CreateQR' element={<CreateQR />} />
         <Route path='AdminDepartment' element={<Admin_department />} />
