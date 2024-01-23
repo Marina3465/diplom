@@ -4,13 +4,17 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate, Link
+  Navigate, Link, redirect, useNavigate
 } from "react-router-dom";
 
 function Choice() {
 
+// const navigate = useNavigate();
   return (
-    <div className='cont-carts'>
+    <div className='cont-carts' >
+
+
+
       <Link to={'/AdminMain'} className='views-info'>
         <img className='choice-img' src={require('../../img/file.png')} />
         <div className='choice-text'>
