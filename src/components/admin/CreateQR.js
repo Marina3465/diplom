@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Admin_header.css';
 import './CreateQR.css'
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 
 const endpoint = 'https://jsonplaceholder.typicode.com/users';
 
@@ -12,6 +12,7 @@ function CreateQR() {
   const [allUsers, setAllUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,7 +49,13 @@ function CreateQR() {
       [userId]: !prevUserStates[userId],
     }));
   };
-
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+  };
+  if (isAuthenticated == false) {
+    return <Navigate to='/Log' />
+  }
   return (
     <>
       <div className='ad_main_header'>
@@ -60,15 +67,15 @@ function CreateQR() {
           <ul className='menu_list'>
             <Link to="/AdminMain" className='link-to'><li className='menu_item'>Последнии записи</li></Link>
             <Link to="/AdminDepartment" className='link-to'><li className='menu_item'>Кафедры</li></Link>
-            <li className='menu_item'>Студенты</li>
-            <li className='menu_item'>Направления</li>
+            <Link to="/AdminStud" className='link-to'><li className='menu_item'>Студенты</li></Link>
+            <Link to="/AdminDirection" className='link-to'><li className='menu_item'>Направления</li></Link>
           </ul>
         </nav>
 
         <div className='admin-to-users'>Пользователи</div>
 
         <div className='admin-to-account'>Мой аккаунт</div>
-        <div className='admin-to-exit'>Выход</div>
+        <div className='admin-to-exit' onClick={handleLogout}>Выход</div>
       </div>
       <div className='qr-options'>
         <div className='create-qr'>
@@ -119,9 +126,14 @@ function CreateQR() {
                 <option key={user.id} value={user.address.suite}>{user.address.suite}</option>
               )}
             </select>
+            {/* onClick={() => setModalActive(true) */}
+
           </div>
         </div>
       </div>
+      <button className='add-qr-group' >
+        <img src={require('../../img/add.png')} alt='add' />
+      </button>
       {filteredUsers.map(user => (
         <div className='cart-qr-group' key={user.id}>
           <div className='data-qr'>

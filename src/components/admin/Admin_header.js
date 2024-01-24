@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import './Admin_header.css';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, Navigate } from 'react-router-dom';
 
 function Admin_header() {
+
     const [isOpen, setOpen] = useState(false);
-    function Exit(){
-        localStorage.removeItem('access_token');
-        // window.location.reload()
+    const [isAuthenticated, setIsAuthenticated] = useState();
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setIsAuthenticated(false);
+    };
+    if (isAuthenticated == false) {
+        return <Navigate to='/Log' />
     }
     return (
         <div className='ad_main_header'>
@@ -18,8 +24,8 @@ function Admin_header() {
                 <ul className='menu_list'>
                     <Link to="/AdminMain" className='link-to'><li className='menu_item'>Последнии записи</li></Link>
                     <Link to="/AdminDepartment" className='link-to'><li className='menu_item'>Кафедры</li></Link>
-                    <li className='menu_item'>Студенты</li>
-                    <li className='menu_item'>Направления</li>
+                    <Link to="/AdminStud" className='link-to'><li className='menu_item'>Студенты</li></Link>
+                    <Link to="/AdminDirection" className='link-to'><li className='menu_item'>Направления</li></Link>
                 </ul>
             </nav>
 
@@ -32,7 +38,7 @@ function Admin_header() {
             </Link>
 
             <div className='admin-to-account'>Мой аккаунт</div>
-            <Link to={"/"} className='admin-to-exit' onClick={Exit()}>Выход</Link>
+            <div className='admin-to-exit' onClick={handleLogout}>Выход</div>
         </div>
 
     )

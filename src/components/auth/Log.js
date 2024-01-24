@@ -7,13 +7,14 @@ import { checkAccount, login } from "../../network"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { Link, Route, redirect } from 'react-router-dom';
+import { Link, Navigate, Route, Redirect, useHistory  } from 'react-router-dom';
 import Choice from '../admin/Choice';
 const eye = <FontAwesomeIcon icon={faEye} />;
 const eyeSlah = <FontAwesomeIcon icon={faEyeSlash} />;
 
 
 function Log() {
+    const [isAuthenticated, setIsAuthenticated] = useState();
     const mess = () => {
         alert('Позвоните по номеру телефона: +7 (000) 000-00-00');
     }
@@ -25,15 +26,16 @@ function Log() {
             console.log(res)
             if (res.success) {
                 let token = res.response.access_token
-                localStorage.setItem('access_token', token)
-                window.location.reload()
+                localStorage.setItem('token', token)
+                setIsAuthenticated(true);
+            
                 
             } else {
                 alert('Не верные данные')
             }
         })
     }
-
+    
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePasswordVisiblity = () => {
 
@@ -44,9 +46,12 @@ function Log() {
     //     setConfPasswordShown(confirmPasswordShown ? false : true);
 
     // };
+    if(isAuthenticated){
+        return <Navigate to='/Choice'/>
+    }
     return (
         <div className='conteiner'>
-            <form className='auth-form' onSubmit={handleSubmit(onSubmit)}>
+            <form className='auth-form' onSubmit={handleSubmit(onSubmit)} action='/'>
                 <div className='img-conteiner'>
                     <img src={require('../../img/logo.png')} alt='Логотип КубГАУ' />
                 </div>

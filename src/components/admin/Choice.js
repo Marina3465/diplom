@@ -9,7 +9,7 @@ import {
 
 function Choice() {
 
-// const navigate = useNavigate();
+
   return (
     <div className='cont-carts' >
 
