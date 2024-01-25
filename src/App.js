@@ -9,6 +9,7 @@ import Log from './components/auth/Log'
 import Admin_department from './components/admin/Admin_department';
 import Admin_students from './components/admin/Admin_students';
 import Admin_direction from './components/admin/Admin_direction';
+import Admin_account from './components/admin/Admin_account';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path='AdminDepartment' element={<Admin_department />} />
         <Route path='AdminStud' element={<Admin_students/>} />
         <Route path='AdminDirection' element={<Admin_direction/>}/>
+        <Route path='AdminAccount' element={<Admin_account/>}/>
       </Routes>
 
     </div>

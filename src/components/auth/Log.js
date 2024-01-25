@@ -47,6 +47,7 @@ function Log() {
     //     setConfPasswordShown(confirmPasswordShown ? false : true);
 
     // };
+    
     if(isAuthenticated){
         return <Navigate to='/Choice'/>
     }

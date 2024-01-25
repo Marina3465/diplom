@@ -37,7 +37,7 @@ function Admin_header() {
 
             </Link>
 
-            <div className='admin-to-account'>Мой аккаунт</div>
+            <Link to='/AdminAccount' className='admin-to-account'>Мой аккаунт</Link>
             <div className='admin-to-exit' onClick={handleLogout}>Выход</div>
         </div>
 

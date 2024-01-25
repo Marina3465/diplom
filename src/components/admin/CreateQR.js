@@ -74,7 +74,7 @@ function CreateQR() {
 
         <div className='admin-to-users'>Пользователи</div>
 
-        <div className='admin-to-account'>Мой аккаунт</div>
+        <Link to='/AdminAccount' className='admin-to-account'>Мой аккаунт</Link>
         <div className='admin-to-exit' onClick={handleLogout}>Выход</div>
       </div>
       <div className='qr-options'>
