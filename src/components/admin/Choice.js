@@ -6,9 +6,12 @@ import {
   Route,
   Navigate, Link, redirect, useNavigate
 } from "react-router-dom";
+import { data_token } from '../../network';
 
 function Choice() {
-
+  // if(data_token != localStorage.getItem('token')){
+  //   return <Navigate to='/Log'/>
+  // }
 
   return (
     <div className='cont-carts' >

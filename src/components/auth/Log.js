@@ -2,7 +2,7 @@ import './Log.css';
 import { useForm } from "react-hook-form";
 import React, { useState } from 'react';
 //import { Link } from "react-router-dom"; 
-import { checkAccount, login } from "../../network"
+import { data_token, login } from "../../network"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -28,7 +28,8 @@ function Log() {
                 let token = res.response.access_token
                 localStorage.setItem('token', token)
                 setIsAuthenticated(true);
-            
+                // console.log(token == localStorage.getItem('token'))
+                // data_token = res.response.access_token;
                 
             } else {
                 alert('Не верные данные')
