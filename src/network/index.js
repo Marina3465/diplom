@@ -21,8 +21,6 @@ async function checkAccount(){
     return res.json()
 }
 
-
-
 export {
     login, checkAccount
 }

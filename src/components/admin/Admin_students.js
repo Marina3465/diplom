@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Admin_header from './Admin_header';
+import './Admin_students.css'
 
 const endpoint = 'https://jsonplaceholder.typicode.com/users';
 
@@ -34,7 +35,7 @@ function Admin_students() {
     const handleChange = (e) => {
         setSearchTerm(e.target.value);
         const filtered = allUsers.filter(user =>
-            user.address.street.toLowerCase().includes(e.target.value.toLowerCase())
+            user.name.toLowerCase().includes(e.target.value.toLowerCase())
         );
         setFilteredUsers(filtered);
     };
@@ -78,23 +79,35 @@ function Admin_students() {
                 
             </div>
             {filteredUsers.map(user => (
-                <div className='cart' key={user.id}>
-                    <div className='data'>
+                <div className='cart-stud' key={user.id}>
+                    {/* <div className='data'>
                         {user.id}
-                    </div>
+                    </div> */}
                     <div className='content'>
                         <div className='col1'>
                             <p><span>ФИО:</span> {user.name}</p>
-                            <p><span>Группа:</span> {user.address.suite}</p>
-                            <p><span>Тип работы:</span> {user.company.name}</p>
-                            <p><span>Статус:</span> {user.address.zipcode}</p>
+                            <p><span>Направление:</span> {user.address.suite}</p>
+                            <p><span>Направленность:</span> {user.company.name}</p>
                         </div>
                         <div className='col2'>
-                            <p><span>Дисциплина:</span> {user.address.city}</p>
-                            <p><span>Преподаватель:</span> {user.email}</p>
-                            <p><span>Кафедра:</span> {user.address.street}</p>
-                            <p><span>Название:</span> {user.company.catchPhrase}</p>
+                            <p><span>Группа:</span> {user.address.city}</p>
+                            <p><span>Программа:</span> {user.email}</p>
+
                         </div>
+                    </div>
+                    <button
+                        className='student-setting'
+                        onClick={() => handleSettingClick(user.id)}
+                    >
+                        <img src={require('../../img/setting.png')} alt='setting' />
+                    </button>
+                    <div className={`button-edit-delete ${userStates[user.id] ? 'active' : ''}`}>
+                        <button>
+                            <img src={require('../../img/edit.png')} alt='edit' />
+                        </button>
+                        <button>
+                            <img src={require('../../img/delete.png')} alt='delete' />
+                        </button>
                     </div>
                 </div>
             ))}
