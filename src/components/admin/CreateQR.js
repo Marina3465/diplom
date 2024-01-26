@@ -72,7 +72,7 @@ function CreateQR() {
           </ul>
         </nav>
 
-        <div className='admin-to-users'>Пользователи</div>
+        <Link to='/AdminUsers' className='admin-to-users'>Пользователи</Link>
 
         <Link to='/AdminAccount' className='admin-to-account'>Мой аккаунт</Link>
         <div className='admin-to-exit' onClick={handleLogout}>Выход</div>

@@ -29,7 +29,7 @@ function Admin_header() {
                 </ul>
             </nav>
 
-            <div className='admin-to-users'>Пользователи</div>
+            <Link to='/AdminUsers' className='admin-to-users'>Пользователи</Link>
 
             <Link className='admin-to-qr' to="/CreateQR">
                 <p>Создать QR-код</p>
