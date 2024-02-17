@@ -1,3 +1,5 @@
+import { json } from "react-router-dom";
+
 const baseUrl = 'https://testbackend.melod1n.dedyn.io';
 
 async function login(loginInfo){
@@ -20,7 +22,19 @@ async function checkAccount(){
     return res.json()
 }
 
-
+// async function getDataFilters(){
+//     const url = `${baseUrl}/journals/filters`;
+//     const res = await fetch(url, {
+//         headers: {
+//             "Authorization": `Bearer ${localStorage.getItem('token')}`
+//         }
+//     })
+//     const data = res.json()
+//     console.log(data)
+//     return data
+   
+    
+// }
 
 
 export {
