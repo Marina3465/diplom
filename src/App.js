@@ -32,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* {isAuthenticated ? <Route path='/' element={<Choice />} /> : <Route path='/' element={<Log />} />}
+        {isAuthenticated ? <Route path='/' element={<Choice />} /> : <Route path='/' element={<Log />} />}
         <Route path='Log' element={<Log />} />
         <Route path='Choice' element={<Choice />} />
         <Route path='AdminMain' element={<Admin_main />} />
@@ -41,12 +41,12 @@ function App() {
         <Route path='AdminStud' element={<Admin_students />} />
         <Route path='AdminDirection' element={<Admin_direction />} />
         <Route path='AdminAccount' element={<Admin_account />} />
-        <Route path='AdminUsers' element={<Admin_users />} /> */}
-        <Route path='/' element={<User_main />} />
+        <Route path='AdminUsers' element={<Admin_users />} />
+        {/* <Route path='/' element={<User_main />} />
         <Route path='UserAccount' element={<User_account />} />
         <Route path='UserMain' element={<User_main />} />
         <Route path='UserSubject' element={<User_subject />} />
-        <Route path='UserProf' element={<User_prof/>}/>
+        <Route path='UserProf' element={<User_prof/>}/> */}
       </Routes>
 
     </div>
