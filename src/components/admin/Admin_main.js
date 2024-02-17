@@ -3,10 +3,15 @@ import './Admin_main.css';
 import Admin_header from './Admin_header';
 import { getDataFilters } from '../../network';
 
-const endpoint = 'https://jsonplaceholder.typicode.com/users';
 
 function Admin_main() {
   const [allUsers, setAllUsers] = useState([]);
+  const [selectedWorkType, setSelectedWorkType] = useState('');
+  const [selectedDiscipline, setSelectedDiscipline] = useState('');
+  const [selectedTeacher, setSelectedTeacher] = useState('');
+  const [selectedDepartment, setSelectedDepartment] = useState('');
+  const [selectedGroup, setSelectedGroup] = useState('');
+
   const [filter, setFilter] = useState({
     response: {
       work_types: [],
@@ -18,7 +23,24 @@ function Admin_main() {
     error: null,
     success: true
   });
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [mainData, setMainData] = useState({
+    response: {
+      count: 30,
+      offset: 0,
+      journal: [],
+      error: null,
+      success: true
+    }
+  })
+  const [filteredUsers, setFilteredUsers] = useState({
+    response: {
+      count: 30,
+      offset: 0,
+      journal: [],
+      error: null,
+      success: true
+    }
+  });
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -119,35 +141,135 @@ function Admin_main() {
 
   }, [])
 
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(endpoint);
-        const data = await response.json();
-        setAllUsers(data);
-        setFilteredUsers(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+    let data = {
+      "response": {
+        "count": 30,
+        "offset": 0,
+        "journal": [
+          {
+            "id": 1,
+            "student": {
+              "fullName": "Абросимов Ярослав Валерьевич",
+              "status": "Учится"
+            },
+            "group": {
+              "id": 1,
+              "title": "ИТ2001"
+            },
+            "discipline": {
+              "id": 1,
+              "title": "Web"
+            },
+            "teacher": {
+              "id": 1,
+              "fullName": "Параскевов Александр Владимирович"
+            },
+            "work": {
+              "id": 1,
+              "type": {
+                "id": 1,
+                "title": "Курсовая работа"
+              },
+              "registrationDate": 1707074652,
+              "title": "Курсовая работа №1"
+            }
+          },
+          {
+            "id": 2,
+            "student": {
+              "fullName": "Кожухар Марина Константиновна",
+              "status": "Учится"
+            },
+            "group": {
+              "id": 2,
+              "title": "ИТ2002"
+            },
+            "discipline": {
+              "id": 2,
+              "title": "Mobile"
+            },
+            "teacher": {
+              "id": 2,
+              "fullName": "Василенко Игорь Иванович"
+            },
+            "work": {
+              "id": 2,
+              "type": {
+                "id": 2,
+                "title": "Расчётная работа"
+              },
+              "registrationDate": 1707074652,
+              "title": null
+            }
+          },
+          {
+            "id": 3,
+            "student": {
+              "fullName": "Николаев Данил Станиславович",
+              "status": "Отчислен"
+            },
+            "group": {
+              "id": 3,
+              "title": "ИТ2003"
+            },
+            "discipline": {
+              "id": 3,
+              "title": "Big data"
+            },
+            "teacher": {
+              "id": 3,
+              "fullName": "Зубенко Михаил Петрович"
+            },
+            "work": {
+              "id": 3,
+              "type": {
+                "id": 3,
+                "title": "Какая-то работа"
+              },
+              "registrationDate": 1234567890,
+              "title": "Пример работы"
+            }
+          }
+        ]
+      },
+      "error": null,
+      "success": true
+    }
+    setMainData(data)
+    setFilteredUsers(data);
+  }, [])
 
-    fetchData();
-  }, []);
 
-  const handleSearch = () => {
-    const filtered = allUsers.filter(user =>
-      user.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredUsers(filtered);
+  const getParams = () => {
+    console.log('тип работы:', selectedWorkType);
+    console.log('дисциплина:', selectedDiscipline);
+    console.log('преподаватель:', selectedTeacher);
+    console.log('кафедра:', selectedDepartment);
+    console.log('группа:', selectedGroup);
+  }
+
+  const resetFilters = () => {
+    setSelectedWorkType('');
+    setSelectedDiscipline('');
+    setSelectedTeacher('');
+    setSelectedDepartment('');
+    setSelectedGroup('');
   };
 
   const handleChange = (e) => {
-    setSearchTerm(e.target.value);
-    const filtered = allUsers.filter(user =>
-      user.name.toLowerCase().includes(e.target.value.toLowerCase())
+    const searchTerm = e.target.value.toLowerCase();
+    setSearchTerm(searchTerm);
+
+    const filtered = mainData.response.journal.filter(journal =>
+      journal.student.fullName.toLowerCase().includes(searchTerm)
     );
-    setFilteredUsers(filtered);
+    setFilteredUsers({
+      response: {
+        ...filteredUsers.response,
+        journal: filtered
+      }
+    });
   };
 
   return (
@@ -162,54 +284,58 @@ function Admin_main() {
         />
       </div>
       <div className='filters'>
-        <select>
+        <select value={selectedWorkType} onChange={(e) => setSelectedWorkType(e.target.value)}>
           <option value={''}>Тип работы: </option>
           {filter.response.work_types.map(work_type =>
             <option key={work_type.id} value={work_type.title}>{work_type.title}</option>
           )}
         </select>
-        <select>
+
+        <select value={selectedDiscipline} onChange={(e) => setSelectedDiscipline(e.target.value)}>
           <option value={''}>Дисциплина: </option>
           {filter.response.disciplines.map(discipline =>
             <option key={discipline.id} value={discipline.title}>{discipline.title}</option>
           )}
         </select>
-        <select>
+        <select value={selectedTeacher} onChange={(e) => setSelectedTeacher(e.target.value)}>
           <option value={''}>Преподаватель: </option>
           {filter.response.teachers.map(teacher =>
             <option key={teacher.id} value={teacher.fio}>{teacher.fio}</option>
           )}
         </select>
-        <select>
+        <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
           <option value={''}>Кафедра: </option>
           {filter.response.departments.map(department =>
             <option key={department.id} value={department.title}>{department.title}</option>
           )}
         </select>
-        <select>
+        <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
           <option value={''}>Группа: </option>
           {filter.response.groups.map(group =>
             <option key={group.id} value={group.title}>{group.title}</option>
           )}
         </select>
+        <button className='get-params' type='submit' onClick={getParams}>Применить</button>
+        <button className='delete-params' onClick={resetFilters}>Сбросить</button>
+
       </div>
-      {filteredUsers.map(user => (
-        <div className='cart' key={user.id}>
+      {filteredUsers.response.journal.map(journal => (
+        <div className='cart' key={journal.id}>
           <div className='data'>
-            {user.id}
+            {journal.work.registrationDate}
           </div>
           <div className='content'>
             <div className='col1'>
-              <p><span>ФИО:</span> {user.name}</p>
-              <p><span>Группа:</span> {user.address.suite}</p>
-              <p><span>Тип работы:</span> {user.company.name}</p>
-              <p><span>Статус:</span> {user.address.zipcode}</p>
+              <p><span>ФИО:</span> {journal.student.fullName}</p>
+              <p><span>Группа:</span> {journal.group.title}</p>
+              <p><span>Тип работы:</span> {journal.work.type.title}</p>
+              <p><span>Статус:</span> {journal.student.status}</p>
             </div>
             <div className='col2'>
-              <p><span>Дисциплина:</span> {user.address.city}</p>
-              <p><span>Преподаватель:</span> {user.email}</p>
-              <p><span>Кафедра:</span> {user.address.street}</p>
-              <p><span>Название:</span> {user.company.catchPhrase}</p>
+              <p><span>Дисциплина:</span> {journal.discipline.title}</p>
+              <p><span>Преподаватель:</span> {journal.teacher.fullName}</p>
+              <p><span>Кафедра:</span> {journal.teacher.fullName}</p>
+              {journal.work.title && <p><span>Название:</span> {journal.work.title}</p>}
             </div>
           </div>
         </div>
