@@ -322,7 +322,7 @@ function Admin_main() {
       {filteredUsers.response.journal.map(journal => (
         <div className='cart' key={journal.id}>
           <div className='data'>
-            {new Date(journal.work.registrationDate * 1000).toLocaleDateString()}
+            {new Date(journal.work.registrationDate * 1000).toLocaleString("ru-ru")}
           </div>
           <div className='content'>
             <div className='col1'>
