@@ -171,7 +171,7 @@ function Admin_main() {
                 "id": 1,
                 "title": "Курсовая работа"
               },
-              "registrationDate": 1707074652,
+              "registrationDate": 1708552888,
               "title": "Курсовая работа №1"
             }
           },
@@ -322,7 +322,7 @@ function Admin_main() {
       {filteredUsers.response.journal.map(journal => (
         <div className='cart' key={journal.id}>
           <div className='data'>
-            {journal.work.registrationDate}
+            {new Date(journal.work.registrationDate * 1000).toLocaleString("ru-ru")}
           </div>
           <div className='content'>
             <div className='col1'>
