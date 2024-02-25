@@ -12,17 +12,17 @@ function Admin_main() {
   const [selectedDepartment, setSelectedDepartment] = useState('');
   const [selectedGroup, setSelectedGroup] = useState('');
 
-  const [filter, setFilter] = useState({
-    response: {
-      work_types: [],
-      disciplines: [],
-      teachers: [],
-      departments: [],
-      groups: []
-    },
-    error: null,
-    success: true
-  });
+  // const [filter, setFilter] = useState({
+  //   response: {
+  //     workTypes: [],
+  //     disciplines: [],
+  //     teachers: [],
+  //     groups: []
+  //   },
+  //   error: null,
+  //   success: true
+  // });
+  const [filter, setFilter] = useState([])
   const [mainData, setMainData] = useState({
     response: {
       count: 30,
@@ -44,102 +44,11 @@ function Admin_main() {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    setFilter({
-      "response": {
-        "work_types": [
-          {
-            "id": 1,
-            "title": "Курсовая работа"
-          },
-          {
-            "id": 2,
-            "title": "Расчётная работа"
-          },
-          {
-            "id": 3,
-            "title": "Какая-то работа"
-          }
-        ],
-        "disciplines": [
-          {
-            "id": 1,
-            "title": "Web"
-          },
-          {
-            "id": 2,
-            "title": "Mobile"
-          },
-          {
-            "id": 3,
-            "title": "Big Data"
-          },
-          {
-            "id": 4,
-            "title": "Algorithms and data structures"
-          },
-          {
-            "id": 5,
-            "title": "Microelectronics"
-          }
-        ],
-        "teachers": [
-          {
-            "id": 1,
-            "fio": "Параскевов Александр Владимирович"
-          },
-          {
-            "id": 2,
-            "fio": "Василенко Игорь Иванович"
-          },
-          {
-            "id": 3,
-            "fio": "Зубенко Михаил Петрович"
-          },
-          {
-            "id": 4,
-            "fio": "Тарас Бульба"
-          }
-        ],
-        "departments": [
-          {
-            "id": 1,
-            "title": "Компьютерных технологий и систем"
-          },
-          {
-            "id": 2,
-            "title": "Информационных систем"
-          },
-          {
-            "id": 3,
-            "title": "Экономической кибернетики"
-          },
-          {
-            "id": 4,
-            "title": "Системного анализа и обработки информации"
-          }
-        ],
-        "groups": [
-          {
-            "id": 1,
-            "title": "ИТ2001"
-          },
-          {
-            "id": 2,
-            "title": "ИТ2002"
-          },
-          {
-            "id": 3,
-            "title": "ИТ2003"
-          }
-        ]
-      },
-      "error": null,
-      "success": true
-
+    getDataFilters().then((resp) => {
+      setFilter(resp.data);
     });
+  }, []);
 
-
-  }, [])
 
   useEffect(() => {
     let data = {
@@ -148,7 +57,7 @@ function Admin_main() {
         "offset": 0,
         "journal": [
           {
-            "id": 1,
+
             "student": {
               "fullName": "Абросимов Ярослав Валерьевич",
               "status": "Учится"
@@ -176,7 +85,7 @@ function Admin_main() {
             }
           },
           {
-            "id": 2,
+
             "student": {
               "fullName": "Кожухар Марина Константиновна",
               "status": "Учится"
@@ -204,7 +113,7 @@ function Admin_main() {
             }
           },
           {
-            "id": 3,
+
             "student": {
               "fullName": "Николаев Данил Станиславович",
               "status": "Отчислен"
@@ -286,8 +195,8 @@ function Admin_main() {
       <div className='filters'>
         <select value={selectedWorkType} onChange={(e) => setSelectedWorkType(e.target.value)}>
           <option value={''}>Тип работы: </option>
-          {filter.response.work_types.map(work_type =>
-            <option key={work_type.id} value={work_type.title}>{work_type.title}</option>
+          {filter.response.workTypes.map(workTypes =>
+            <option key={workTypes.id} value={workTypes.title}>{workTypes.title}</option>
           )}
         </select>
 
@@ -303,12 +212,12 @@ function Admin_main() {
             <option key={teacher.id} value={teacher.fio}>{teacher.fio}</option>
           )}
         </select>
-        <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
+        {/* <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
           <option value={''}>Кафедра: </option>
           {filter.response.departments.map(department =>
             <option key={department.id} value={department.title}>{department.title}</option>
           )}
-        </select>
+        </select> */}
         <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
           <option value={''}>Группа: </option>
           {filter.response.groups.map(group =>
@@ -320,7 +229,7 @@ function Admin_main() {
 
       </div>
       {filteredUsers.response.journal.map(journal => (
-        <div className='cart' key={journal.id}>
+        <div className='cart' /*key={journal.id}*/>
           <div className='data'>
             {new Date(journal.work.registrationDate * 1000).toLocaleString("ru-ru")}
           </div>
