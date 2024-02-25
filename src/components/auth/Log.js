@@ -58,7 +58,7 @@ function Log() {
                     <img src={require('../../img/logo.png')} alt='Логотип КубГАУ' />
                 </div>
 
-                <input className='auth-email auth-input' type="email" placeholder='Почта' {...register("login", {
+                <input className='auth-email auth-input' type="email" placeholder='Почта' {...register("email", {
                     required: true, pattern: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
                 })} /><br></br>
                 {errors.email && <p className='auth-error'>Не корректный ввод почты</p>}

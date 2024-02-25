@@ -4,6 +4,7 @@ import Admin_header from './Admin_header';
 import { getDataFilters } from '../../network';
 
 
+
 function Admin_main() {
   const [allUsers, setAllUsers] = useState([]);
   const [selectedWorkType, setSelectedWorkType] = useState('');
@@ -22,7 +23,7 @@ function Admin_main() {
   //   error: null,
   //   success: true
   // });
-  const [filter, setFilter] = useState([])
+  const [filter, setFilter] = useState()
   const [mainData, setMainData] = useState({
     response: {
       count: 30,
@@ -194,22 +195,22 @@ function Admin_main() {
       </div>
       <div className='filters'>
         <select value={selectedWorkType} onChange={(e) => setSelectedWorkType(e.target.value)}>
-          <option value={''}>Тип работы: </option>
+          <option value={'null'}>Тип работы: </option>
           {filter.response.workTypes.map(workTypes =>
             <option key={workTypes.id} value={workTypes.title}>{workTypes.title}</option>
           )}
         </select>
 
         <select value={selectedDiscipline} onChange={(e) => setSelectedDiscipline(e.target.value)}>
-          <option value={''}>Дисциплина: </option>
-          {filter.response.disciplines.map(discipline =>
-            <option key={discipline.id} value={discipline.title}>{discipline.title}</option>
+          <option value={'null'}>Дисциплина: </option>
+          {filter.response.disciplines.map(disciplines =>
+            <option key={disciplines.id} value={disciplines.title}>{disciplines.title}</option>
           )}
         </select>
         <select value={selectedTeacher} onChange={(e) => setSelectedTeacher(e.target.value)}>
-          <option value={''}>Преподаватель: </option>
-          {filter.response.teachers.map(teacher =>
-            <option key={teacher.id} value={teacher.fio}>{teacher.fio}</option>
+          <option value={'null'}>Преподаватель: </option>
+          {filter.response.teachers.map(teachers =>
+            <option key={teachers.id} value={teachers.firstName}>{teachers.firstName}</option>
           )}
         </select>
         {/* <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
@@ -219,9 +220,9 @@ function Admin_main() {
           )}
         </select> */}
         <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
-          <option value={''}>Группа: </option>
-          {filter.response.groups.map(group =>
-            <option key={group.id} value={group.title}>{group.title}</option>
+          <option value={'null'}>Группа: </option>
+          {filter.response.groups.map(groups =>
+            <option key={groups.id} value={groups.title}>{groups.title}</option>
           )}
         </select>
         <button className='get-params' type='submit' onClick={getParams}>Применить</button>
