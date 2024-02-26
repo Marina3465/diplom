@@ -3,17 +3,17 @@ import axios from 'axios'
 
 const baseUrl = 'https://testbackend.melod1n.dedyn.io';
 
-async function loginAxios(loginInfo, callback){
+async function loginAxios(loginInfo, callback) {
     const url = `${baseUrl}/auth`
 
     console.log(url)
 
-    await axios.get(url,{
-        params:{
-            email:loginInfo.email,
-            password:loginInfo.password
+    await axios.get(url, {
+        params: {
+            email: loginInfo.email,
+            password: loginInfo.password
         }
-    }).then((res)=>{
+    }).then((res) => {
         callback(res.data)
     })
 }
@@ -51,9 +51,31 @@ async function getDataFilters(callback) {
     })
 }
 
+async function getDataAdminJournal(parameter, callback) {
+    const url = `${baseUrl}/journals`;
+
+    await axios.get(url, {
+        params: {
+
+            disciplineId: parameter.disciplineId,
+            teacherId: parameter.teacherId,
+            departmentId: parameter.departmentId,
+            groupId: parameter.groupId,
+            workTypeId: parameter.workTypeId
+
+        },
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
+        }
+
+    }).then((res) => {
+        callback(res.data)
+        console.log(res.data);
+    })
+}
 
 
 export {
-    login, checkAccount, getDataFilters, loginAxios
+    login, checkAccount, getDataFilters, loginAxios, getDataAdminJournal
 }
 
