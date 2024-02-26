@@ -2,7 +2,7 @@ import './Log.css';
 import { useForm } from "react-hook-form";
 import React, { useState } from 'react';
 //import { Link } from "react-router-dom"; 
-import { data_token, login } from "../../network"
+import { data_token, getDataFilters, login, loginAxios} from "../../network"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -21,16 +21,11 @@ function Log() {
     const { register, handleSubmit, formState: { errors }, reset, watch, getValues } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
-        login(data).then((res) => {
-            console.log(res)
+        loginAxios(data, (res) => {
             if (res.success) {
-                let token = res.response.access_token
+                const token = res.response.accessToken
                 localStorage.setItem('token', token)
-                setIsAuthenticated(true);
-                // console.log(token == localStorage.getItem('token'))
-                // data_token = res.response.access_token;
-                
+                setIsAuthenticated(true)
             } else {
                 alert('Не верные данные')
             }
