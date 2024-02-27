@@ -3,7 +3,7 @@ import './Admin_main.css';
 import Admin_header from './Admin_header';
 import { getDataFilters } from '../../network';
 import { getDataAdminJournal } from '../../network';
-import Select from 'react-select/dist/declarations/src/Select';
+import Select from 'react-select';
 
 function Admin_main() {
     const [allUsers, setAllUsers] = useState([]);
@@ -65,21 +65,22 @@ function Admin_main() {
     };
 
     const getParams = () => {
-        console.log('тип работы:', selectedWorkType);
-        console.log('дисциплина:', selectedDiscipline);
-        console.log('преподаватель:', selectedTeacher);
-        console.log('кафедра:', selectedDepartment);
-        console.log('группа:', selectedGroup);
+        // console.log('тип работы:', selectedWorkType.value);
+        // console.log('дисциплина:', selectedDiscipline.value);
+        // console.log('преподаватель:', selectedTeacher.value);
+        // console.log('кафедра:', selectedDepartment.value);
+        // console.log('группа:', selectedGroup.value);
 
-
+      
         const journalParam = {
-            disciplineId: selectedDiscipline,
-            teacherId: selectedTeacher,
-            departmentId: selectedDepartment,
-            groupId: selectedGroup,
-            workTypeId: selectedWorkType
-        }
-
+            disciplineId: selectedDiscipline ? selectedDiscipline.value : null,
+            teacherId: selectedTeacher ? selectedTeacher.value : null,
+            departmentId: selectedDepartment ? selectedDepartment.value : null,
+            groupId: selectedGroup ? selectedGroup.value : null,
+            workTypeId: selectedWorkType ? selectedWorkType.value : null,
+          };
+          
+        console.log(journalParam)
         getDataAdminJournal(journalParam, (data) => {
             setMainData(data)
             setFilteredUsers(data);
@@ -120,16 +121,21 @@ function Admin_main() {
             }
         });
     };
-    const [selectedOptions, setSelectedOptions] = useState();
-    const optionList = [
-        { value: "red", label: "Red" },
-        { value: "green", label: "Green" },
-        { value: "yellow", label: "Yellow" },
-        { value: "blue", label: "Blue" },
-        { value: "white", label: "White" }
-    ];
-    function handleSelect(data) {
-        setSelectedOptions(data);
+
+    function handleSelectDiscipline(data) {
+        setSelectedDiscipline(data);
+    }
+
+    function handleSelectType(data) {
+        setSelectedWorkType(data);
+    }
+
+    function handleSelectTeacher(data) {
+        setSelectedTeacher(data);
+    }
+
+    function handleSelectGroup(data) {
+        setSelectedGroup(data);
     }
 
     return (
@@ -146,15 +152,49 @@ function Admin_main() {
             <div className='filters'>
 
                 <Select
-                    options={optionList}
-                    placeholder="Select color"
-                    value={selectedOptions}
-                    onChange={handleSelect}
+                    placeholder="Тип работы"
+                    value={selectedWorkType}
+                    onChange={handleSelectType}
                     isSearchable={true}
+                    options={filter.response.workTypes.map(workTypes => ({
+                        value: workTypes.id,
+                        label: workTypes.title,
+                    }))}
+                />
+
+                <Select
+                    placeholder="Дисциплина"
+                    value={selectedDiscipline}
+                    onChange={handleSelectDiscipline}
+                    isSearchable={true}
+                    options={filter.response.disciplines.map(disciplines => ({
+                        value: disciplines.id,
+                        label: disciplines.title,
+                    }))}
+                />
+                <Select
+                    placeholder="Преподаватель"
+                    value={selectedTeacher}
+                    onChange={handleSelectTeacher}
+                    isSearchable={true}
+                    options={filter.response.teachers.map(teachers => ({
+                        value: teachers.id,
+                        label: teachers.lastName,
+                    }))}
+                />
+                <Select
+                    placeholder="Группа"
+                    value={selectedGroup}
+                    onChange={handleSelectGroup}
+                    isSearchable={true}
+                    options={filter.response.groups.map(groups => ({
+                        value: groups.id,
+                        label: groups.title,
+                    }))}
                 />
 
 
-                <select value={selectedWorkType} onChange={(e) => setSelectedWorkType(e.target.value)}>
+                {/* <select value={selectedWorkType} onChange={(e) => setSelectedWorkType(e.target.value)}>
                     <option value={null}>Тип работы: </option>
                     {filter.response.workTypes.map(workTypes =>
                         <option key={workTypes.id} value={workTypes.id}>{workTypes.title}</option>
@@ -172,19 +212,19 @@ function Admin_main() {
                     {filter.response.teachers.map(teachers =>
                         <option key={teachers.id} value={teachers.id}>{teachers.lastName} {teachers.firstName} {teachers.middleName}</option>
                     )}
-                </select>
+                </select> */}
                 {/* <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
           <option value={''}>Кафедра: </option>
           {filter.response.departments.map(department =>
             <option key={department.id} value={department.title}>{department.title}</option>
           )}
         </select> */}
-                <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
+                {/* <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
                     <option value={null}>Группа: </option>
                     {filter.response.groups.map(groups =>
                         <option key={groups.id} value={groups.id}>{groups.title}</option>
                     )}
-                </select>
+                </select> */}
                 <button className='get-params' type='submit' onClick={getParams}>Применить</button>
                 <button className='delete-params' onClick={resetFilters}>Сбросить</button>
 
