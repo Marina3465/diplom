@@ -31,12 +31,13 @@
 .filters {
     display: flex;
     justify-content: left;
+    align-items: center;
     margin-left: 70px;
     margin-right: 70px;
     flex-wrap: wrap;
 }
 
-.filters select {
+/* .filters-select {
     border-radius: 3px;
     border: 1px solid #6B6B6B;
     background: #D9D9D9;
@@ -46,8 +47,13 @@
     padding: 5px 10px;
     margin-right: 20px;
     margin-top: 20px;
+} */
+.filters > div{
+    /* display: inline;
+    width: 110%; */
+    margin-top: 20px;
+    margin-right: 20px; 
 }
-
 .get-params,
 .delete-params {
     font-size: 18px;

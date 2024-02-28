@@ -62,6 +62,19 @@ function Admin_main() {
         console.log('преподаватель:', selectedTeacher);
         console.log('кафедра:', selectedDepartment);
         console.log('группа:', selectedGroup);
+
+        const journalParam = {
+            disciplineId: null,
+            teacherId: null,
+            departmentId: null,
+            groupId: null,
+            workTypeId: null
+        }
+        getDataAdminJournal(journalParam, (data) => {
+            setMainData(data)
+            setFilteredUsers(data);
+        })
+
     };
 
     const getParams = () => {
@@ -71,15 +84,15 @@ function Admin_main() {
         // console.log('кафедра:', selectedDepartment.value);
         // console.log('группа:', selectedGroup.value);
 
-      
+
         const journalParam = {
             disciplineId: selectedDiscipline ? selectedDiscipline.value : null,
             teacherId: selectedTeacher ? selectedTeacher.value : null,
             departmentId: selectedDepartment ? selectedDepartment.value : null,
             groupId: selectedGroup ? selectedGroup.value : null,
             workTypeId: selectedWorkType ? selectedWorkType.value : null,
-          };
-          
+        };
+
         console.log(journalParam)
         getDataAdminJournal(journalParam, (data) => {
             setMainData(data)
@@ -137,7 +150,34 @@ function Admin_main() {
     function handleSelectGroup(data) {
         setSelectedGroup(data);
     }
-
+    const customStyles = {
+        option: (provided, state) => ({
+            ...provided,
+            fontSize: '14px',
+            color: state.isSelected ? 'white' : 'green',
+            backgroundColor: state.isSelected ? 'green' : 'white',
+            cursor: 'pointer',
+            border: 'none',
+            '&:hover': {
+                backgroundColor: 'green',
+                color: 'white',
+            },
+            ...(state.isActive && {
+                border: 'none',
+                boxShadow: '0 0 0 2px green',
+            }),
+        }),
+        control: (provided) => ({
+            ...provided,
+            width: '120%',
+            border: 'none',
+            boxShadow: '0 0 0 2px green',
+        }),
+        menu: (provided) => ({
+            ...provided,
+            width: '120%',
+        }),
+    };
     return (
         <>
             <Admin_header />
@@ -150,49 +190,58 @@ function Admin_main() {
                 />
             </div>
             <div className='filters'>
-
-                <Select
-                    placeholder="Тип работы"
-                    value={selectedWorkType}
-                    onChange={handleSelectType}
-                    isSearchable={true}
-                    options={filter.response.workTypes.map(workTypes => ({
-                        value: workTypes.id,
-                        label: workTypes.title,
-                    }))}
-                />
-
-                <Select
-                    placeholder="Дисциплина"
-                    value={selectedDiscipline}
-                    onChange={handleSelectDiscipline}
-                    isSearchable={true}
-                    options={filter.response.disciplines.map(disciplines => ({
-                        value: disciplines.id,
-                        label: disciplines.title,
-                    }))}
-                />
-                <Select
-                    placeholder="Преподаватель"
-                    value={selectedTeacher}
-                    onChange={handleSelectTeacher}
-                    isSearchable={true}
-                    options={filter.response.teachers.map(teachers => ({
-                        value: teachers.id,
-                        label: teachers.lastName,
-                    }))}
-                />
-                <Select
-                    placeholder="Группа"
-                    value={selectedGroup}
-                    onChange={handleSelectGroup}
-                    isSearchable={true}
-                    options={filter.response.groups.map(groups => ({
-                        value: groups.id,
-                        label: groups.title,
-                    }))}
-                />
-
+                <div>
+                    <Select
+                        styles={customStyles}
+                        placeholder="Тип работы"
+                        value={selectedWorkType}
+                        onChange={handleSelectType}
+                        isSearchable={true}
+                        options={filter.response.workTypes.map(workTypes => ({
+                            value: workTypes.id,
+                            label: workTypes.title,
+                        }))}
+                    />
+                </div>
+                <div>
+                    <Select
+                        styles={customStyles}
+                        placeholder="Дисциплина"
+                        value={selectedDiscipline}
+                        onChange={handleSelectDiscipline}
+                        isSearchable={true}
+                        options={filter.response.disciplines.map(disciplines => ({
+                            value: disciplines.id,
+                            label: disciplines.title,
+                        }))}
+                    />
+                </div>
+                <div>
+                    <Select
+                        styles={customStyles}
+                        placeholder="Преподаватель"
+                        value={selectedTeacher}
+                        onChange={handleSelectTeacher}
+                        isSearchable={true}
+                        options={filter.response.teachers.map(teachers => ({
+                            value: teachers.id,
+                            label: (teachers.lastName + ' ' + teachers.firstName + ' ' + teachers.middleName),
+                        }))}
+                    />
+                </div>
+                <div>
+                    <Select
+                        styles={customStyles}
+                        placeholder="Группа"
+                        value={selectedGroup}
+                        onChange={handleSelectGroup}
+                        isSearchable={true}
+                        options={filter.response.groups.map(groups => ({
+                            value: groups.id,
+                            label: groups.title,
+                        }))}
+                    />
+                </div>
 
                 {/* <select value={selectedWorkType} onChange={(e) => setSelectedWorkType(e.target.value)}>
                     <option value={null}>Тип работы: </option>
