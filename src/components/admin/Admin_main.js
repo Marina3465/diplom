@@ -150,6 +150,35 @@ function Admin_main() {
     function handleSelectGroup(data) {
         setSelectedGroup(data);
     }
+    const customStylesGroup ={
+        option: (provided, state) => ({
+            ...provided,
+            fontSize: '14px',
+            color: state.isSelected ? 'white' : 'green',
+            backgroundColor: state.isSelected ? 'green' : 'white',
+            cursor: 'pointer',
+            border: 'none',
+            '&:hover': {
+                backgroundColor: 'green',
+                color: 'white',
+            },
+            ...(state.isActive && {
+                border: 'none',
+                boxShadow: '0 0 0 2px green',
+            }),
+        }),
+        control: (provided) => ({
+            ...provided,
+
+            minWidth: '100px',
+            border: 'none',
+            boxShadow: '0 0 0 2px green',
+        }),
+        menu: (provided) => ({
+            ...provided,
+            width: '100%',
+        }),
+    };
     const customStyles = {
         option: (provided, state) => ({
             ...provided,
@@ -169,13 +198,14 @@ function Admin_main() {
         }),
         control: (provided) => ({
             ...provided,
-            width: '120%',
+
+            minWidth: '200px',
             border: 'none',
             boxShadow: '0 0 0 2px green',
         }),
         menu: (provided) => ({
             ...provided,
-            width: '120%',
+            width: '100%',
         }),
     };
     return (
@@ -186,7 +216,7 @@ function Admin_main() {
                     type='text'
                     value={searchTerm}
                     onChange={handleChange}
-                    placeholder='Поиск по имени...'
+                    placeholder='Поиск по ФИО студента...'
                 />
             </div>
             <div className='filters'>
@@ -231,7 +261,7 @@ function Admin_main() {
                 </div>
                 <div>
                     <Select
-                        styles={customStyles}
+                        styles={customStylesGroup}
                         placeholder="Группа"
                         value={selectedGroup}
                         onChange={handleSelectGroup}
