@@ -1,10 +1,14 @@
-import { json } from "react-router-dom";
 import axios from 'axios'
 
 const baseUrl = 'https://testbackend.melod1n.dedyn.io';
 
+axios.interceptors.request.use(async request => {
+    request.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+    return request
+})
+
 async function loginAxios(loginInfo, callback) {
-    const url = `${baseUrl}/auth`
+   const url = `${baseUrl}/auth`
 
     console.log(url)
 
@@ -16,14 +20,6 @@ async function loginAxios(loginInfo, callback) {
     }).then((res) => {
         callback(res.data)
     })
-}
-
-async function login(loginInfo) {
-    const url = new URL(`${baseUrl}/auth`)
-    url.search = new URLSearchParams(loginInfo).toString()
-    const res = await fetch(url)
-
-    return res.json()
 }
 
 async function checkAccount() {
@@ -41,11 +37,7 @@ async function checkAccount() {
 async function getDataFilters(callback) {
     const url = `${baseUrl}/journals/filters`;
 
-    await axios.get(url, {
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
-    }).then((res) => {
+    await axios.get(url).then((res) => {
         callback(res.data)
         console.log(res.data);
     })
@@ -64,10 +56,6 @@ async function getDataAdminJournal(parameter, callback) {
             workTypeId: parameter.workTypeId
 
         },
-        headers: {
-            "Authorization": `Bearer ${localStorage.getItem('token')}`
-        }
-
     }).then((res) => {
         callback(res.data)
         console.log(res.data);
@@ -76,6 +64,6 @@ async function getDataAdminJournal(parameter, callback) {
 
 
 export {
-    login, checkAccount, getDataFilters, loginAxios, getDataAdminJournal
+    checkAccount, getDataFilters, loginAxios, getDataAdminJournal
 }
 
