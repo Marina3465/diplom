@@ -78,13 +78,6 @@ function Admin_main() {
     };
 
     const getParams = () => {
-        // console.log('тип работы:', selectedWorkType.value);
-        // console.log('дисциплина:', selectedDiscipline.value);
-        // console.log('преподаватель:', selectedTeacher.value);
-        // console.log('кафедра:', selectedDepartment.value);
-        // console.log('группа:', selectedGroup.value);
-
-
         const journalParam = {
             disciplineId: selectedDiscipline ? selectedDiscipline.value : null,
             teacherId: selectedTeacher ? selectedTeacher.value : null,
@@ -113,12 +106,7 @@ function Admin_main() {
             setMainData(data)
             setFilteredUsers(data);
         })
-
-        // console.log(journalParam)
     }, []);
-
-
-
 
     const handleChange = (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -255,7 +243,7 @@ function Admin_main() {
                         isSearchable={true}
                         options={filter.response.teachers.map(teachers => ({
                             value: teachers.id,
-                            label: (teachers.lastName + ' ' + teachers.firstName + ' ' + teachers.middleName),
+                            label: teachers.title,
                         }))}
                     />
                 </div>
@@ -273,43 +261,12 @@ function Admin_main() {
                     />
                 </div>
 
-                {/* <select value={selectedWorkType} onChange={(e) => setSelectedWorkType(e.target.value)}>
-                    <option value={null}>Тип работы: </option>
-                    {filter.response.workTypes.map(workTypes =>
-                        <option key={workTypes.id} value={workTypes.id}>{workTypes.title}</option>
-                    )}
-                </select>
-
-                <select value={selectedDiscipline} onChange={(e) => setSelectedDiscipline(e.target.value)}>
-                    <option value={null}>Дисциплина: </option>
-                    {filter.response.disciplines.map(disciplines =>
-                        <option key={disciplines.id} value={disciplines.id}>{disciplines.title}</option>
-                    )}
-                </select>
-                <select value={selectedTeacher} onChange={(e) => setSelectedTeacher(e.target.value)}>
-                    <option value={null}>Преподаватель: </option>
-                    {filter.response.teachers.map(teachers =>
-                        <option key={teachers.id} value={teachers.id}>{teachers.lastName} {teachers.firstName} {teachers.middleName}</option>
-                    )}
-                </select> */}
-                {/* <select value={selectedDepartment} onChange={(e) => setSelectedDepartment(e.target.value)}>
-          <option value={''}>Кафедра: </option>
-          {filter.response.departments.map(department =>
-            <option key={department.id} value={department.title}>{department.title}</option>
-          )}
-        </select> */}
-                {/* <select value={selectedGroup} onChange={(e) => setSelectedGroup(e.target.value)}>
-                    <option value={null}>Группа: </option>
-                    {filter.response.groups.map(groups =>
-                        <option key={groups.id} value={groups.id}>{groups.title}</option>
-                    )}
-                </select> */}
                 <button className='get-params' type='submit' onClick={getParams}>Применить</button>
                 <button className='delete-params' onClick={resetFilters}>Сбросить</button>
 
             </div>
             {filteredUsers.response.journal.map(journal => (
-                <div className='cart' /*key={journal.id}*/>
+                <div className='cart' >
                     <div className='data'>
                         {new Date(journal.work.registrationDate * 1000).toLocaleString("ru-ru")}
                     </div>

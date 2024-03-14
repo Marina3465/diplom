@@ -14,7 +14,7 @@ async function loginAxios(loginInfo, callback) {
 
     await axios.get(url, {
         params: {
-            email: loginInfo.email,
+            login: loginInfo.email,
             password: loginInfo.password
         }
     }).then((res) => {
