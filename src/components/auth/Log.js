@@ -1,14 +1,12 @@
 import './Log.css';
 import { useForm } from "react-hook-form";
 import React, { useState } from 'react';
-//import { Link } from "react-router-dom"; 
-import { data_token, getDataFilters, login, loginAxios} from "../../network"
+import {loginAxios} from "../../network"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { Link, Navigate, Route, Redirect, useHistory  } from 'react-router-dom';
-import Choice from '../admin/Choice';
 const eye = <FontAwesomeIcon icon={faEye} />;
 const eyeSlah = <FontAwesomeIcon icon={faEyeSlash} />;
 
@@ -38,10 +36,6 @@ function Log() {
         setPasswordShown(passwordShown ? false : true);
 
     };
-    // const toggleConfPasswordVisiblity = () => {
-    //     setConfPasswordShown(confirmPasswordShown ? false : true);
-
-    // };
     
     if(isAuthenticated){
         return <Navigate to='/Choice'/>
@@ -59,14 +53,10 @@ function Log() {
                 {errors.email && <p className='auth-error'>Не корректный ввод почты</p>}
 
                 <div className='passw-eye'><input className='auth-input auth-pass' type={passwordShown ? "text" : "password"} placeholder='Пароль' {...register("password")} /><i onClick={togglePasswordVisiblity}>{passwordShown ? eyeSlah : eye}</i></div>
-                {/* <p className={`auth-error ${login(data).then((res) => {res.success}) ? 'hide' : ''}`}>Неверный пароль</p> */}
                 <div className='forgot_pass' onClick={mess}>Забыли пароль?</div>
                 <div><input className='auth-submit' type='submit' value='Войти'></input></div>
             </form>
-
         </div>
-
-
     );
 }
 
