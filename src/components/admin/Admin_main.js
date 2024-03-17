@@ -42,7 +42,12 @@ function Admin_main() {
             success: true
         }
     });
+    const [visibleItems, setVisibleItems] = useState(5);
     const [searchTerm, setSearchTerm] = useState('');
+
+    const loadMore = () => {
+        setVisibleItems(prevVisibleItems => prevVisibleItems + 5);
+      };
 
     useEffect(() => {
         getDataFilters((res) => {
@@ -265,7 +270,7 @@ function Admin_main() {
                 <button className='delete-params' onClick={resetFilters}>Сбросить</button>
 
             </div>
-            {filteredUsers.response.journal.map(journal => (
+            {filteredUsers.response.journal.slice(0, visibleItems).map(journal => (
                 <div className='cart' >
                     <div className='data'>
                         {new Date(journal.work.registrationDate * 1000).toLocaleString("ru-ru")}
@@ -286,6 +291,7 @@ function Admin_main() {
                     </div>
                 </div>
             ))}
+            <button className='btn-loadMore' onClick={loadMore}>Загрузить ещё</button>
         </>
     );
 }
